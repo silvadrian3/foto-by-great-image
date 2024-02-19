@@ -1,0 +1,68 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+    <app-page-header [heading]="'Update User'" [icon]="'fa-fw fa-pencil-square-o'"></app-page-header>
+    
+    <!-- <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert> -->
+
+    <div class="col-lg-8 col-lg-offset-2 form-group">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Profile
+      </div>
+  
+      <div class="clear-filler"></div>
+      <div class="clear-filler"></div>
+      
+      <form role="form" (ngSubmit)="updateUser()" ngNativeValidate>
+          <div class="col-lg-10 col-lg-offset-1 form-body">
+          <div class="col-lg-12">
+              <div class="col-lg-12 form-group">
+                <h4>Profile Details</h4>
+            </div>
+          </div>
+        
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-6">
+              <label>First Name</label>
+              <input type="text" class="form-control" name="firstname" [(ngModel)]="firstname">
+            </div>
+            <div class="col-lg-6">
+              <label>Last Name</label>
+              <input type="text" class="form-control" name="lastname" [(ngModel)]="lastname">
+            </div>
+          </div>
+        
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-12">
+              <label>Email Address <span>*</span></label>
+              <input type="email" class="form-control" name="emailaddress" [(ngModel)]="emailaddress" readonly>
+            </div>
+          </div>
+  
+  
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-6">
+              <label>Contact Number</label>
+              <input type="text" class="form-control" name="contactnumber" [(ngModel)]="contactnumber">
+            </div>
+          </div>
+  
+          <div class="clear-filler"></div>
+          <div class="clear-filler"></div>
+          <div class="col-lg-12 text-center form-group">
+            <div class="col-lg-2 col-lg-offset-5">
+              <button type="submit" class="btn btn-success"> Save </button>
+            </div>
+          </div>
+  
+        </div>
+      </form>
+      <div class="clear-filler"></div>
+      <div class="col-lg-10 col-lg-offset-1 text-center">
+          <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+        </div>
+      <div class="clear-filler"></div>
+    
+    </div>
+  </div>
+  </div>

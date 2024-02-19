@@ -1,0 +1,222 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+  <app-page-header [heading]="'Users'" [icon]="'fa-fw fa-users'"></app-page-header>
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-fw fa-users" aria-hidden="true"></i> Users      
+      </div>
+
+      <div class="clear-filler"></div>
+      
+  
+      <div class="col-lg-12">
+        <div class="col-lg-3">
+            <!-- <div class="pull-left">
+              <div class="input-group">
+                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-info">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </span>  
+                <input #gb type="text" pInputText class="form-control" placeholder="Search">
+              </div>
+            </div> -->
+        </div>
+
+        <div class="col-lg-3 col-lg-offset-6">
+            <div class="pull-right">
+              <button type="button" routerLink="create-user" class="btn btn-info pull-right">Create User</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12">
+          <div class="col-lg-12 table-responsive">
+            <div class="clear-filler"></div>
+            <div class="clear-filler"></div> 
+
+            <data-table id="users-grid"
+                headerTitle=""
+                [items]="users"
+                [itemCount]="usersCount"
+                (reload)="reloadUsers($event)"
+                [limit]="10"
+                [sortBy]="'name'"
+                [sortAsc]="true"
+                [selectColumn]="false"
+                [multiSelect]="false"
+                [substituteRows]="false"
+                [expandableRows]="false"
+                [translations]="translations"
+                [indexColumnHeader]="'#'"
+                [selectOnRowClick]="true"
+                >
+                <!-- <ng-template #dataTableExpand let-item="item">
+                    <div [textContent]="item.description" style="padding: 5px; color: gray"></div>
+                </ng-template>
+                 -->
+                <data-table-column
+                    [property]="'name'"
+                    [header]="'Name'"
+                    [sortable]="true">
+                    <ng-template #dataTableCell let-item="item">
+                      {{ item.firstName + ' ' + item.lastName }}
+                    </ng-template>
+                </data-table-column>
+                <data-table-column
+                  [property]="'email'"
+                  [header]="'Email Address'"
+                  [sortable]="true">
+                </data-table-column>
+
+                <data-table-column
+                  [property]="'mobileNumber'"
+                  [header]="'Contact Number'"
+                  [sortable]="true">
+                </data-table-column>
+
+                <data-table-column
+                  [property]="'role'"
+                  [header]="'Role'"
+                  [sortable]="true">
+                </data-table-column>
+
+                <data-table-column
+                [property]="'action'"
+                [header]="'Action'"
+                style="width:10%;">
+                <ng-template #dataTableCell let-item="item">
+                    <span 
+                      class="fa fa-search row-action row-search" 
+                      title="View" 
+                      (click)="getUserDetailsRow(item.userId); open(content)">
+                    </span>
+                    <span 
+                      class="fa fa-pencil row-action row-edit"
+                      title="Update"
+                      [routerLink]="['update-user']"
+                      [queryParams]="{id:item.userId}">
+                    </span>
+                    <span 
+                      class="fa fa-times row-action row-delete"
+                      title="Archive"
+                      (click)="deleteUserDetailsRow(item.userId)">
+                    </span>
+
+                </ng-template>
+                </data-table-column>
+            </data-table>
+
+            <div class="clear-filler"></div> 
+
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+        <div class="col-lg-12">
+          <div class="col-lg-12 text-center">
+            <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+
+      <!-- Start - Modal -->
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h6 class="modal-title"> User Details</h6>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">        
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+              <label>Name</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedUserDetails.firstName + ' ' + selectedUserDetails.lastName }}
+                <span [hidden]="selectedUserDetails.firstName != '' && selectedUserDetails.lastName != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Email Addres</label>
+            </div>
+            <div class="col-lg-6">
+              <p>{{ selectedUserDetails.email }}</p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Mobile Number</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedUserDetails.mobileNumber }}
+                <span [hidden]="selectedUserDetails.mobileNumber != ''">N/A</span>
+            </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+              <label>Role</label>
+            </div>
+            <div class="col-lg-6">
+              <p>{{ selectedUserDetails.role }}</p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Date Modified</label>
+            </div>
+            <div class="col-lg-6">
+            <p *ngIf="selectedUserDetails.updatedTime != null">{{ selectedUserDetails.updatedTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+            <p *ngIf="selectedUserDetails.updatedTime == null">{{ selectedUserDetails.createdTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+            </div>
+          </div>
+
+          <!-- <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Date of Birth</label>
+            </div>
+            <div class="col-lg-6">
+            <p>{{ selectedUserDetails.birthday | date : 'dd MMM y' }}</p>
+            </div>
+          </div> -->
+
+          <!-- <div class="col-lg-12">
+            <div class="col-lg-6">
+              <label>Status</label>
+            </div>
+            <div class="col-lg-6">
+              <p>{{ selectedUserDetails.user.status }}</p>
+            </div>
+          </div> -->
+
+        </div>
+        <div class="modal-footer">
+          <div class="col-lg-12"> 
+            <div class="text-center col-lg-12">
+              <button 
+                type="button" 
+                class="btn btn-secondary" 
+                style="margin: 3px 10px;" 
+                (click)="d('Cross click')">
+                Close
+              </button>
+            </div>
+            <div class="clear-filler"></div>
+          
+        </div>
+          
+      </div>
+      </ng-template>
+      <!-- End - Modal -->
+
+    </div>
+  </div>

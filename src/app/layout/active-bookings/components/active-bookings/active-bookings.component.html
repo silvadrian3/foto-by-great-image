@@ -1,0 +1,524 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+   <div [@routerTransition]>
+<app-page-header [heading]="'Bookings'" [icon]="'fa-fw fa-calendar'"></app-page-header>
+
+<div class="card">
+    
+    <div class="card-header">
+      <i class="fa fa-calendar" aria-hidden="true"></i> Booking
+    </div>
+
+    <div class="clear-filler"></div>
+
+    
+      <form role="form">
+        <div class="col-lg-12">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-6 col-lg-offset-3">
+            <div class="pull-right">
+              <!-- <button type="button" routerLink="booking-type" class="btn btn-warning">Booking Types</button> -->
+              <button type="button" routerLink="create-booking" class="btn btn-info">Create Booking</button>
+            </div>
+          </div>
+        </div>
+        
+      <div class="col-lg-12">
+        <div class="col-lg-12 table-responsive">
+          <div class="clear-filler"></div>
+          <div class="clear-filler"></div>
+
+          <data-table id="bookings-grid"
+            headerTitle=""
+            [items]="bookings"
+            [itemCount]="bookingsCount"
+            (reload)="reloadBookings($event)"
+            [limit]="10"
+            [sortBy]="'dateTime'"
+            [sortAsc]="true"
+            [selectColumn]="false"
+            [multiSelect]="false"
+            [substituteRows]="false"
+            [expandableRows]="true"
+            [translations]="dtTranslations"
+            [indexColumnHeader]="'#'"
+            [selectOnRowClick]="true"
+            (rowClick)="expandRow($event)"
+            >
+              <ng-template #dataTableExpand let-item="item">
+                  
+              <div class="clear-filler"></div>
+              <div class="col-lg-12">
+                <tabset>
+                  <tab heading="Details">
+                    <div class="row expanded-description">  
+                      <div class="col-lg-6">
+                        <div class="clear-filler">&nbsp;</div>
+                        <div class="clear-filler"></div>
+
+                        <div class="col-lg-12">
+                          <div class="row">
+                            <div class="col-lg-5">
+                              <label>Reference No.</label>
+                            </div>
+                            <div class="col-lg-7">
+                              <p>
+                                {{ item.referenceNumber }}
+                                <span [hidden]="item.referenceNumber != '' && item.referenceNumber != null">N/A</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                        
+                      <div class="col-lg-12">
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <label>Booking Type</label>
+                          </div>
+                          <div class="col-lg-7">
+                            <p *ngIf="item.bookingType != undefined">
+                              {{ item.bookingType.name }}
+                              <span [hidden]="item.bookingType.name != ''">N/A</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <label>Service Type</label>
+                          </div>
+                          <div class="col-lg-7">
+                            <p *ngIf="item.bookingType != undefined">
+                              {{ item.bookingType.serviceType }}
+                              <span [hidden]="item.bookingType.serviceType != ''">N/A</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <label>Customer Name</label>
+                          </div>
+                          <div class="col-lg-7">
+                            <p *ngIf="item.customer != null">
+                              {{ item.customer.firstName + ' ' + item.customer.lastName }}
+                              <span [hidden]="item.customer.firstName != '' && item.customer.lastName != ''">N/A</span>
+                            </p>
+                            <p *ngIf="item.customer == null">N/A</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <label>Contact Number</label>
+                          </div>
+                          <div class="col-lg-7">
+                            <p *ngIf="item.customer != null">
+                              {{ item.customer.mobileNumber }}
+                              <span [hidden]="item.customer.mobileNumber != ''">N/A</span>
+                            </p>
+                            <p *ngIf="item.customer == null">N/A</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-5">
+                          <label>Email Address</label>
+                          </div>
+                          <div class="col-lg-7">
+                          <p *ngIf="item.customer != null">
+                          {{ item.customer.email }}
+                          <span [hidden]="item.customer.email != ''">N/A</span>
+                          </p>
+                          <p *ngIf="item.customer == null">
+                          N/A
+                          </p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <label>Appointment Date</label>
+                          </div>
+                          <div class="col-lg-7">
+                            <p>
+                              {{ item.dateTime | date : 'dd MMM yyyy hh:mm a' }}
+                              <span [hidden]="item.dateTime != null">N/A</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <label>Address</label>
+                          </div>
+                          <div class="col-lg-7">
+                            <p *ngIf="item.address != null">
+                              <span *ngIf="item.address.address1 != null">{{item.address.address1}}</span>
+                              <span *ngIf="item.address.address2 != null">{{item.address.address2}}</span>
+                              <span *ngIf="item.address.city != null">{{item.address.city}}</span>
+                              <span *ngIf="item.address.state != null">{{item.address.state}}</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <label>Status</label>
+                          </div>
+                          <div class="col-lg-7">
+                            <p>
+                              <span [ngClass]="{'text-info': item.bookingStatus == 'CONFIRMED', 'text-primary': item.bookingStatus == 'APPROVED', 'text-danger': item.bookingStatus == 'DECLINED' || item.bookingStatus == 'CANCELED', 'text-warning': item.bookingStatus == 'PENDING', 'text-success': item.bookingStatus == 'COMPLETED' }">{{ item.bookingStatus }}</span>
+                              <span [hidden]="item.bookingStatus != ''">N/A</span>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <label>Photographer <span *ngIf="item.bookingStatus == 'PENDING'" class="sp_require">*</span></label>
+                          </div>
+                          <div class="col-lg-7">
+                            <label *ngIf="item.bookingStatus != 'PENDING'">
+                              <span *ngIf="item.photographerEmail != null">
+                                <span *ngFor="let photographers of opt_photographers">
+                                  <span *ngIf="photographers.firstName != '' || photographers.lastName != ''">
+                                    <span *ngIf="photographers.email == item.photographerEmail">
+                                      {{photographers.firstName + ' ' + photographers.lastName }}
+                                      <span [hidden]="photographers.firstName != '' || photographers.lastName != ''">N/A</span>
+                                    </span>
+                                  </span>
+                                  <span *ngIf="photographers.firstName == '' && photographers.lastName == ''">
+                                    {{ item.photographerEmail }}  
+                                  </span>
+                                </span>
+                              </span>
+                              <span [hidden]="item.photographerEmail != null">N/A</span>
+                            </label>
+
+                            <p>
+                              <select name="photographer" class="form-control" [(ngModel)]="photographer" required *ngIf="item.bookingStatus == 'PENDING'">
+                                <option value=""> - - - Select Photographer - - - </option>
+                                <option *ngFor="let photographers of opt_photographers" [value]="photographers.email">
+                                  <span>{{photographers.firstName + ' ' + photographers.lastName }}</span>
+                                  <span *ngIf="photographers.firstName == '' && photographers.lastName == ''">{{photographers.email }}</span>
+                                </option>
+                              </select>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <div class="col-lg-6">
+                          <div class="clear-filler">&nbsp;</div>
+                          <div class="clear-filler"></div>
+                        
+                        <div class="col-lg-12">
+                        <div class="col-lg-12" *ngIf="item.address.location != null">
+                          <agm-map 
+                            [latitude]="item.address.location.latitude" 
+                            [longitude]="item.address.location.longitude" 
+                            [zoom]="mapZoom"
+                            [mapDraggable]="false"
+                            [streetViewControl]="false" 
+                            [mapTypeId]="mapType">
+                              <agm-marker
+                                [latitude]="item.address.location.latitude"
+                                [longitude]="item.address.location.longitude"
+                                [markerDraggable]="false">
+                            </agm-marker>
+                          </agm-map>
+                        </div>
+                      </div>
+                        <div class="clear-filler"></div>
+                      </div>
+
+                      <div class="col-lg-12"> 
+                          <div class="clear-filler"></div>
+                        <div 
+                          class="text-center col-lg-12" 
+                          [hidden]="item.bookingStatus != 'PENDING'">
+                          <button 
+                            type="submit" 
+                            class="btn btn-success" 
+                            style="margin: 3px 10px;"
+                            (click)="acceptRequest(item.id, 'row')">
+                            Accept
+                          </button>
+                          <button 
+                            type="button" 
+                            class="btn btn-danger" 
+                            style="margin: 3px 10px;"
+                            (click)="declineRequest(item.id, 'row')">
+                            Decline
+                          </button>
+                        </div>
+              
+                        <div 
+                          class="text-center col-lg-12" 
+                          [hidden]="item.bookingStatus != 'CONFIRMED'">
+                          <button 
+                            type="submit" 
+                            class="btn btn-success" 
+                            style="margin: 3px 10px;"
+                            (click)="completeRequest(item.id, 'row')">
+                            Complete
+                          </button>
+                        </div>
+                        
+                        <div class="clear-filler"></div>
+                          <div class="col-lg-12 text-center">
+                            <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+                          </div>
+                        
+                      </div>                      
+                    </div>
+
+                  </tab>
+
+                  <tab heading="Photos" (select)="callFetchPhotos(item.id)">
+                    <div class="clear-filler"></div>
+                    <div class="clear-filler"></div>
+
+                    <div class="col-lg-12" >
+                        <!-- <div class="col-lg-12">
+                          <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+                        </div> -->
+                        
+                        <div class="col-lg-3">
+                          <img 
+                            src="../../../../../assets/images/add-photos.png" 
+                            class="img img-responsive img-thumbnail preview-img-holder" 
+                            (click)="fileUploadInput.click()" />
+  
+                          <input 
+                            type="file" 
+                            style="display:none"
+                            multiple="true"
+                            (change)="onFileSelected($event, item.id)"
+                            #fileUploadInput>
+                        </div>
+
+                        <span *ngIf="selectedBookingPhotos != undefined && selectedBookingPhotos != []">
+                          <span *ngFor="let bookingPhotos of selectedBookingPhotos">
+                              <span *ngIf="bookingPhotos.selectedBookingId != undefined && bookingPhotos.selectedBookingId == item.id">
+                                <span *ngFor="let bookingPhoto of bookingPhotos.data">
+                                  <div class="col-lg-3" *ngIf="bookingPhoto.status == 'ACTIVE'">
+                                    <img 
+                                      src="{{bookingPhoto.raw}}" 
+                                      class="img img-responsive img-thumbnail preview-img-holder" 
+                                      (click)="getPhotoDetailsRow(bookingPhoto.photoId, bookingPhoto.bookingId); open(content)" />
+                                  </div>
+                                </span>
+                              </span>
+                          </span>
+                        </span>
+                        
+                        <!-- <span *ngIf="selectedFiles != undefined && selectedFiles.length != 0"> -->
+
+                        <div class="col-lg-3" [hidden]="!loadingSpinner">
+                          <div class="img-thumbnail preview-img-holder">
+                            <ngx-spinner
+                              bdOpacity = 0.9
+                              bdColor = "#333333"
+                              size = "medium"
+                              color = "#fff"
+                              type = "ball-clip-rotate"
+                              fullScreen = "false"
+                              loadingText="Uploading..."
+                            ></ngx-spinner>
+                          </div>
+                        </div>
+
+                    <!-- </span> -->
+
+                    <div class="clear-filler"></div>
+                    <div class="clear-filler"></div>
+                        
+
+                        <!-- <span *ngIf="selectedBookingPhotos != undefined && selectedBookingPhotos.selectedBookingId == item.bookingId">
+                        <span *ngFor="let bookingPhoto of selectedBookingPhotos.data">
+                      
+                          <div class="col-lg-3" *ngIf="bookingPhoto.status == 'ACTIVE' && bookingPhoto.bookingId == item.bookingId">
+                            <img 
+                              src="{{bookingPhoto.raw}}" 
+                              class="img img-responsive img-thumbnail preview-img-holder" 
+                              (click)="getPhotoDetailsRow(bookingPhoto.photoId); open(content)" />
+                          </div>
+                          </span>
+                        </span> -->
+
+                      </div>
+
+                      
+
+                  </tab>
+                  
+                </tabset>
+              </div>
+            </ng-template>
+            
+              <!-- <data-table-column
+                [property]="'bookingId'"
+                [header]="'Booking ID'"
+                [sortable]="true">
+             </data-table-column> -->
+
+             
+
+              <data-table-column
+                [property]="'referenceNumber'"
+                [header]="'Reference No.'"
+                [sortable]="true">
+              </data-table-column>
+
+                <data-table-column
+                  [property]="'dateTime'"
+                  [header]="'Appointment'"
+                  [sortable]="true">
+                  <ng-template #dataTableCell let-item="item">
+                    {{ item.dateTime | date: 'dd MMM yyyy hh:mm a': true }}
+                  </ng-template>
+              </data-table-column>
+
+              <data-table-column
+                [property]="'bookingType'"
+                [header]="'Booking Type'"
+                [sortable]="true">
+                <ng-template #dataTableCell let-item="item">
+
+                  <span *ngIf="item.bookingType != undefined">
+                  {{ item.bookingType.name }}
+                  </span>
+                </ng-template>
+              </data-table-column>
+
+              <data-table-column
+                [property]="'serviceType'"
+                [header]="'Service Type'"
+                [sortable]="true">
+                <ng-template #dataTableCell let-item="item">
+                    <span *ngIf="item.bookingType != undefined">
+                  {{ item.bookingType.serviceType }}
+                  </span>
+                </ng-template>
+              </data-table-column>
+
+              
+
+              <data-table-column
+              [property]="'totalPrice'"
+              [header]="'Price'"
+              [sortable]="true">
+              <ng-template #dataTableCell let-item="item">
+                    {{ item.totalPrice | currency: 'PHP': true}}
+                  </ng-template>
+            </data-table-column>
+
+              <data-table-column
+                [property]="'bookingStatus'"
+                [header]="'Status'"
+                [sortable]="true">
+                <ng-template #dataTableCell let-item="item">
+                  <span [ngClass]="{'text-info': item.bookingStatus == 'CONFIRMED', 'text-primary': item.bookingStatus == 'APPROVED', 'text-danger': item.bookingStatus == 'DECLINED' || item.bookingStatus == 'CANCELED', 'text-success': item.bookingStatus == 'COMPLETED', 'text-warning': item.bookingStatus == 'PENDING'}">{{ item.bookingStatus}}</span> 
+                </ng-template>
+              </data-table-column>
+
+              <!--
+              <data-table-column
+                [property]="'action'"
+                [header]="'Action'"
+                style="width:10%;">
+                
+                <ng-template #dataTableCell let-item="item">
+                    <button
+                      type="button"
+                      title="View"
+                      class="btn btn-sm btn-primary"
+                      (click)="getBookingDetailsRow(item.bookingId); open(content);">
+                      View
+                    </button>
+                </ng-template>
+                
+              </data-table-column>
+              -->
+            </data-table>
+
+          <div class="clear-filler"></div> 
+        </div>
+      </div>
+
+      <div class="clear-filler"></div>
+
+      <!-- Start - Modal -->
+      <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-body">
+            <div class="col-lg-12">
+              <button type="button" #btnDismiss class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+  
+            <div class="col-lg-12 text-center">
+                <div class="clear-filler"></div>
+                <img 
+                  src="{{selectedPhoto.raw}}" 
+                  class="img img-responsive img-thumbnail" />
+                <div class="clear-filler"></div>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            
+              <div class="col-lg-12 text-center">
+                  <div class="row">
+                <div class="col-lg-6">
+                  <small class="pull-left text-muted">
+                    Date Modified: 
+                    <span 
+                      *ngIf="selectedPhoto.updatedTime != null">
+                      {{ selectedPhoto.updatedTime | date: 'dd MMM yyyy hh:mm a': true}}
+                    </span>
+                    <span 
+                      *ngIf="selectedPhoto.updatedTime == null && selectedPhoto.createdTime != null">
+                      {{ selectedPhoto.createdTime | date: 'dd MMM yyyy hh:mm a': true}}
+                    </span>
+                  </small>
+                  <br/>
+                  <a class="pull-left" [href]="selectedPhoto.raw" target="_blank">Download Original Photo</a>
+                </div>
+                  
+                  <!-- <button 
+                    type="button" 
+                    class="btn btn-success" 
+                    style="margin: 3px 10px; width:100px"
+                    (click)="onDownloadPhoto(selectedPhoto.raw)">
+                    Download
+                  </button> -->
+
+                  <div class="col-lg-6">
+                  <button 
+                    type="button" 
+                    class="btn btn-danger pull-right" 
+                    style="margin: 3px 10px; width:100px"
+                    (click)="deletePhoto(selectedPhoto.photoId, selectedPhoto.bookingId, 'modal')">
+                    Delete
+                  </button>
+                  </div>
+                </div>
+                  
+                <div class="clear-filler"></div>
+                  <div class="col-lg-12 text-center">
+                    <ngb-alert [type]="modalAlert.type" (close)="closeModalAlert(modalAlert)" *ngFor="let modalAlert of modalAlerts">{{ modalAlert.message }}</ngb-alert>
+                  </div>
+                </div>
+          </div>
+
+        </ng-template>
+        <!-- End - Modal -->
+
+  </form>
+  </div>
+</div>

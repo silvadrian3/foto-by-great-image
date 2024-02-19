@@ -1,0 +1,128 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+  <app-page-header [heading]="'Create Booking Type'" [icon]="'fa-fw fa-plus'"></app-page-header>
+  
+  <div class="col-lg-8 col-lg-offset-2 form-group">
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-plus" aria-hidden="true"></i> Create Booking
+    </div>
+
+    <div class="clear-filler"></div>
+    <div class="clear-filler"></div>
+    
+    <form role="form" (ngSubmit)="createBooking()" ngNativeValidate>
+      <div class="col-lg-10 col-lg-offset-1 form-body">
+        <div class="col-lg-12">
+            <div class="col-lg-12 form-group">
+              <h4>Booking Details</h4>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Appointment Date</label>
+            
+              <!-- 
+              <input class="form-control" placeholder="dd/mm/yyyy" ngx-mydatepicker name="appointmentDateUI" [(ngModel)]="appointmentDateUI" [options]="myOptions" #dp="ngx-mydatepicker" (focus)="dp.toggleCalendar()" /> 
+              <span class="input-group-btn">
+                  <button type="button" class="btn btn-success" (click)="dp.toggleCalendar()">
+                      <i class="fa fa-calendar"></i>
+                  </button>
+              </span>
+              -->
+              <angular2-date-picker [(ngModel)]="appointmentDateTime" name="appointmentDateTime" [settings]="appointmentDateTimeSettings"></angular2-date-picker>
+            
+          </div>
+        </div>
+
+      
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Service Type <span>*</span></label>
+            <select class="form-control" name="serviceType" [(ngModel)]="serviceType" (change)="onServicesChange()" required>
+              <option value=""> - - - Please Select - - - </option>
+              <option *ngFor="let service of opt_services" [hidden]="service.serviceType != 'STUDIO'" [value]="service.id">{{service.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group" [hidden]="opt_packages.length == 0">
+          <div class="col-lg-12">
+            <label>Package</label>
+            <select class="form-control" name="servicePackage" [(ngModel)]="servicePackage">
+              <option value=""> - - - Please Select - - - </option>
+              <option *ngFor="let packages of opt_packages" [value]="packages.id">{{packages.name}}</option>
+            </select>
+
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Customer Email Address <span>*</span></label>
+            <input 
+                type="email" 
+                class="form-control" 
+                name="customerEmail" 
+                [(ngModel)]="customerEmail"
+                required>
+          </div>
+        </div>
+
+        
+
+        <div class="col-lg-12 form-group" *ngIf="!hasBranch">
+          <div class="col-lg-12">
+            <label>Branch <span>*</span></label>
+            <select class="form-control" name="branch" [(ngModel)]="branch" required (change)="onBranchChange()" >
+              <option value=""> - - - Please Select - - - </option>
+              <option *ngFor="let branch of opt_branch" [value]="branch.branchId">{{branch.name}}</option>
+            </select>
+          
+            <input 
+                type="hidden" 
+                class="form-control" 
+                name="location" 
+                [(ngModel)]="location"
+                />
+          </div>
+        </div>
+        
+        <div class="clear-filler"></div>
+        <div class="clear-filler"></div>
+        
+        <div class="col-lg-12 text-center form-group">
+          <div class="col-lg-2 col-lg-offset-4">
+            <button type="submit" class="btn btn-success" [disabled]="isSubmitted"> Submit </button>
+          </div>
+          <div class="col-lg-2">
+              <button 
+                type="button" 
+                routerLink="/booking" 
+                class="btn btn-warning"> 
+                  Cancel 
+              </button>
+          </div>
+        </div>
+
+        
+      </div>
+      <div class="clear-filler"></div>
+
+      <div class="col-lg-10 col-lg-offset-1 text-center">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+      </div>
+
+        <div class="clear-filler"></div>
+    </form>
+    
+    
+  
+  </div>
+</div>
+
+<div class="clear-filler"></div>
+<div class="clear-filler"></div>
+<div class="clear-filler"></div>
+</div>

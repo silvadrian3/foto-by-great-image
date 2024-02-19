@@ -1,0 +1,27 @@
+[
+  {
+    "address": {
+      "address1": "Arch St",
+      "location": {
+        "latitude": 14.6178,
+        "longitude": 121.0572
+      },
+      "address2": "Breed",
+      "city": "Antipolo",
+      "state": "NSW",
+      "zipcode": "124",
+      "country": "Philippines"
+    },
+    "branchId": "12345",
+    "closesAt": "08:00",
+    "contactNumbers": [
+      "string"
+    ],
+    "createdTime": "2019-06-10T12:33:51.656Z",
+    "email": "branch1@greatimage.com.ph",
+    "name": "Taytay Branch",
+    "openAt": "21:00",
+    "status": "ACTIVE",
+    "updatedTime": "2019-06-10T12:33:51.656Z"
+  }
+]

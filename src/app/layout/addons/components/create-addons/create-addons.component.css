@@ -1,0 +1,7 @@
+.form-body label span {
+    color:#ff0000;
+}
+
+textarea {
+    resize: none;
+}

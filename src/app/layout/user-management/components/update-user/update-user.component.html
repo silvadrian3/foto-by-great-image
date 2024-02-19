@@ -1,0 +1,98 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+    <app-page-header [heading]="'Update User'" [icon]="'fa-fw fa-pencil-square-o'"></app-page-header>
+    
+    <!-- <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert> -->
+
+    <div class="col-lg-8 col-lg-offset-2 form-group">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update User
+      </div>
+  
+      <div class="clear-filler"></div>
+      <div class="clear-filler"></div>
+      
+      <form role="form" (ngSubmit)="updateUser()" ngNativeValidate>
+          <div class="col-lg-10 col-lg-offset-1 form-body">
+          <div class="col-lg-12">
+              <div class="col-lg-12 form-group">
+                <h4>User Details</h4>
+            </div>
+          </div>
+        
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-6">
+              <label>First Name</label>
+              <input type="text" class="form-control" name="firstname" [(ngModel)]="firstname">
+            </div>
+            <div class="col-lg-6">
+              <label>Last Name</label>
+              <input type="text" class="form-control" name="lastname" [(ngModel)]="lastname">
+            </div>
+          </div>
+        
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-12">
+              <label>Email Address <span>*</span></label>
+              <input type="email" class="form-control" name="emailaddress" [(ngModel)]="emailaddress" readonly>
+            </div>
+          </div>
+  
+  
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-6">
+              <label>Contact Number</label>
+              <input type="text" class="form-control" name="contactnumber" [(ngModel)]="contactnumber">
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-12">
+              <label>Role <span>*</span></label>
+              <select class="form-control" name="usertype" [(ngModel)]="usertype" required>
+                <option value=""> - - - Please Select - - - </option>
+                <option value="ADMIN"> ADMIN </option>
+                <option value="BRANCH_MANAGER"> BRANCH MANAGER </option>
+                <option value="EDITOR"> EDITOR </option>
+                <option value="PHOTOGRAPHER"> PHOTOGRAPHER </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-12 form-group" [hidden]="usertype!='BRANCH_MANAGER'">
+            <div class="col-lg-12">
+              <label>Branch <span>*</span></label>
+              <select class="form-control" name="branch" [(ngModel)]="branch" [required]="usertype=='BRANCH_MANAGER'">
+                <option *ngFor="let branch of opt_branch" [value]="branch.branchId">{{branch.name}}</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="clear-filler"></div>
+          <div class="clear-filler"></div>
+          <div class="col-lg-12 text-center form-group">
+            <div class="col-lg-2 col-lg-offset-4">
+              <button type="submit" class="btn btn-success"> Submit </button>
+            </div>
+            <div class="col-lg-2">
+                <button 
+                  type="button" 
+                  routerLink="/user-management" 
+                  class="btn btn-warning"> 
+                    Cancel 
+                </button>
+            </div>
+          </div>
+  
+        </div>
+      </form>
+      <div class="clear-filler"></div>
+      <div class="col-lg-10 col-lg-offset-1 text-center">
+          <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+        </div>
+      <div class="clear-filler"></div>
+    
+    </div>
+  </div>
+  </div>

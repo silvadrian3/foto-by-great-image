@@ -1,0 +1,97 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+  <app-page-header [heading]="'Create Promo'" [icon]="'fa-fw fa-plus'"></app-page-header>
+  
+  <div class="col-lg-8 col-lg-offset-2 form-group">
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-plus" aria-hidden="true"></i> Create Promo
+    </div>
+
+    <div class="clear-filler"></div>
+    <div class="clear-filler"></div>
+    
+    <form role="form" (ngSubmit)="createPromo()" ngNativeValidate>
+      <div class="col-lg-10 col-lg-offset-1 form-body">
+        <div class="col-lg-12">
+            <div class="col-lg-12 form-group">
+              <h4>Promo Details</h4>
+          </div>
+        </div>
+      
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Code <span>*</span></label>
+            <input type="text" class="form-control" name="code" [(ngModel)]="code" required>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Expiration Date</label>
+            <angular2-date-picker [(ngModel)]="expirationDateTime" name="expirationDateTime" [settings]="expirationDateTimeSettings"></angular2-date-picker>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Description </label>
+            <div class="input-group">
+              <textarea class="form-control" rows="5" name="description" [(ngModel)]="description"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-6">
+            <label>Discount <span>*</span></label>
+            <div class="input-group">
+              <input 
+                type="number" 
+                step="any" 
+                class="form-control" name="discount" [(ngModel)]="discount" min="0" max="100" aria-describedby="price-ico" placeholder="0.00" required>
+                <span class="input-group-addon" id="price-ico">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+              <label>Active Promo </label><br/>
+            <ui-switch name="isActive" size="small" [(ngModel)]="isActive"></ui-switch>
+          </div>
+        </div>
+
+        <div class="clear-filler"></div>
+        <div class="clear-filler"></div>
+        
+        <div class="col-lg-12 text-center form-group">
+          <div class="col-lg-2 col-lg-offset-4">
+            <button type="submit" class="btn btn-success" [disabled]="isSubmitted"> Submit </button>
+          </div>
+          <div class="col-lg-2">
+              <button 
+                type="button" 
+                routerLink="/promos" 
+                class="btn btn-warning"> 
+                  Cancel 
+              </button>
+          </div>
+        </div>
+
+        
+      </div>
+      <div class="clear-filler"></div>
+
+      <div class="col-lg-10 col-lg-offset-1 text-center">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+      </div>
+
+        <div class="clear-filler"></div>
+    </form>
+    
+    
+  
+  </div>
+</div>
+</div>

@@ -1,0 +1,66 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+    <ul class="list-group">
+        <!--
+        <a *ngIf="loggedUserType==0" 
+            routerLink="/dashboard" 
+            [routerLinkActive]="['router-link-active']" 
+            class="list-group-item">
+                <i class="fa fa-fw fa-dashboard"></i> {{ 'Dashboard' }}
+        </a>
+        -->
+        <a routerLink="/booking"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item">
+            <i class="fa fa-fw fa-calendar"></i> {{ 'Booking' }}
+        </a>
+        <a routerLink="/services" 
+            [routerLinkActive]="['router-link-active']" 
+            class="list-group-item" 
+            [hidden]="loggedUserType!='ADMIN'">
+            <i class="fa fa-fw fa-camera"></i> {{ 'Services' }}
+        </a>
+        <a routerLink="/packages" 
+            [routerLinkActive]="['router-link-active']" 
+            class="list-group-item" 
+            [hidden]="loggedUserType!='ADMIN'">
+            <i class="fa fa-fw fa-th-list"></i> {{ 'Packages' }}
+        </a>
+        <a routerLink="/addons" 
+            [routerLinkActive]="['router-link-active']" 
+            class="list-group-item" 
+            [hidden]="loggedUserType!='ADMIN'">
+            <i class="fa fa-fw fa-plus-square"></i> {{ 'AddOns' }}
+        </a>
+        <!--
+        <a routerLink="/photos" 
+            [routerLinkActive]="['router-link-active']" 
+            class="list-group-item">
+            <i class="fa fa-fw fa-photo"></i> {{ 'Photos' }}
+        </a>
+        -->
+        <a routerLink="/branches" 
+            [routerLinkActive]="['router-link-active']" 
+            class="list-group-item"
+            [hidden]="loggedUserType!='ADMIN'">
+            <i class="fa fa-fw fa-home"></i> {{'Branches' }}
+        </a>
+        <a routerLink="/products"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+            [hidden]="loggedUserType!='ADMIN'">
+            <i class="fa fa-fw fa-tags"></i> {{'Products' }}
+        </a>
+        <a routerLink="/promos"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+            [hidden]="loggedUserType!='ADMIN'">
+            <i class="fa fa-fw fa-gift"></i> {{'Promos' }}
+        </a>
+        <a routerLink="/user-management"
+            [routerLinkActive]="['router-link-active']"
+            class="list-group-item"
+            [hidden]="loggedUserType!='ADMIN'">
+            <i class="fa fa-fw fa-users"></i> {{'User Management' }}
+        </a>
+    </ul>
+</nav>

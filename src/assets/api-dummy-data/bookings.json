@@ -1,0 +1,166 @@
+[
+    {
+       "bookingId":"BKEq2hnuQfIkWfi4khmmw1xJ6WvnEm",
+       "bookingTypeId":"portraitpersonal",
+       "customerId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+       "dateTime":"2019-03-22T08:00:00",
+       "location":"Rochester Pasig",
+       "status":"DECLINED",
+       "customer":{
+          "firebaseUserId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+          "email":"ceosilvajr@gmail.com",
+          "firstName":"Booker",
+          "lastName":"1",
+          "mobileNumber":"09778236663",
+          "updatedTime":"2019-03-10T15:58:08.043",
+          "createdTime":"2019-03-10T15:57:14.569"
+       },
+       "bookingType":{
+          "bookingTypeId":"portraitpersonal",
+          "status":"ACTIVE",
+          "serviceType":"PERSONAL",
+          "name":"Portrait",
+          "updatedTime":null,
+          "createdTime":"2019-03-07T18:37:07.933"
+       },
+       "updatedTime":"2019-03-10T19:35:44.39",
+       "createdTime":"2019-03-10T19:01:38.792",
+       "photographerEmail": "adaml@vine.new"
+    }, {
+      "bookingId":"BKEq2hnuQfIkWfi4k2mmw7xJ6WvnEm",
+      "bookingTypeId":"portraitpersonal",
+      "customerId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+      "dateTime":"2019-03-22T08:00:00",
+      "location":"Rochester Pasig",
+      "status":"COMPLETED",
+      "customer":{
+         "firebaseUserId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+         "email":"ceosilvajr@gmail.com",
+         "firstName":"Booker",
+         "lastName":"2",
+         "mobileNumber":"09778236663",
+         "updatedTime":"2019-03-10T15:58:08.043",
+         "createdTime":"2019-03-10T15:57:14.569"
+      },
+      "bookingType":{
+         "bookingTypeId":"portraitpersonal",
+         "status":"ACTIVE",
+         "serviceType":"PERSONAL",
+         "name":"Portrait",
+         "updatedTime":null,
+         "createdTime":"2019-03-07T18:37:07.933"
+      },
+      "updatedTime":"2019-03-10T19:35:44.39",
+      "createdTime":"2019-03-10T19:01:38.792",
+      "photographerEmail": "dtosmsettsa3@foxnews.tst"
+      
+   }, {
+      "bookingId":"BKEq2hnuQfIkW3i4khmmw7xJ6WvnEm",
+      "bookingTypeId":"portraitpersonal",
+      "customerId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+      "dateTime":"2019-03-22T08:00:00",
+      "location":"Rochester Pasig",
+      "status":"APPROVED",
+      "customer":{
+         "firebaseUserId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+         "email":"ceosilvajr@gmail.com",
+         "firstName":"Booker",
+         "lastName":"3",
+         "mobileNumber":"09778236663",
+         "updatedTime":"2019-03-10T15:58:08.043",
+         "createdTime":"2019-03-10T15:57:14.569"
+      },
+      "bookingType":{
+         "bookingTypeId":"portraitpersonal",
+         "status":"ACTIVE",
+         "serviceType":"PERSONAL",
+         "name":"Portrait",
+         "updatedTime":null,
+         "createdTime":"2019-03-07T18:37:07.933"
+      },
+      "updatedTime":"2019-03-10T19:35:44.39",
+      "createdTime":"2019-03-10T19:01:38.792",
+      "photographerEmail": ""
+   }, {
+      "bookingId":"BKEq2hnuQf4kWfi4khmmw7xJ6WvnEm",
+      "bookingTypeId":"portraitpersonal",
+      "customerId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+      "dateTime":"2019-03-22T08:00:00",
+      "location":"Rochester Pasig",
+      "status":"PENDING",
+      "customer":{
+         "firebaseUserId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+         "email":"ceosilvajr@gmail.com",
+         "firstName":"Booker",
+         "lastName":"4",
+         "mobileNumber":"09778236663",
+         "updatedTime":"2019-03-10T15:58:08.043",
+         "createdTime":"2019-03-10T15:57:14.569"
+      },
+      "bookingType":{
+         "bookingTypeId":"portraitpersonal",
+         "status":"ACTIVE",
+         "serviceType":"PERSONAL",
+         "name":"Portrait",
+         "updatedTime":null,
+         "createdTime":"2019-03-07T18:37:07.933"
+      },
+      "updatedTime":"2019-03-10T19:35:44.39",
+      "createdTime":"2019-03-10T19:01:38.792",
+      "photographerEmail": ""
+   }, {
+      "bookingId":"BKEq2hgQhf4kWfi4khmmw7xJ6WvnEm",
+      "bookingTypeId":"portraitpersonal",
+      "customerId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+      "dateTime":"2019-03-22T08:00:00",
+      "location":"Rochester Pasig",
+      "status":"CONFIRMED",
+      "customer":{
+         "firebaseUserId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+         "email":"ceosilvajr@gmail.com",
+         "firstName":"Booker",
+         "lastName":"5",
+         "mobileNumber":"09778236663",
+         "updatedTime":"2019-03-10T15:58:08.043",
+         "createdTime":"2019-03-10T15:57:14.569"
+      },
+      "bookingType":{
+         "bookingTypeId":"portraitpersonal",
+         "status":"ACTIVE",
+         "serviceType":"PERSONAL",
+         "name":"Portrait",
+         "updatedTime":null,
+         "createdTime":"2019-03-07T18:37:07.933"
+      },
+      "updatedTime":"2019-03-10T19:35:44.39",
+      "createdTime":"2019-03-10T19:01:38.792",
+      "photographerEmail": ""
+   }, {
+      "bookingId":"BKEq2hgQ4kWfi4khmmgow31xJ6WvnEm",
+      "bookingTypeId":"portraitpersonal",
+      "customerId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+      "dateTime":"2019-03-22T08:00:00",
+      "location":"Rochester Pasig",
+      "status":"CANCELED",
+      "customer":{
+         "firebaseUserId":"PKTyZY3AKSbyTD6ZJ9cWoTwqCxK2",
+         "email":"ceosilvajr@gmail.com",
+         "firstName":"Booker",
+         "lastName":"6",
+         "mobileNumber":"09778236663",
+         "updatedTime":"2019-03-10T15:58:08.043",
+         "createdTime":"2019-03-10T15:57:14.569"
+      },
+      "bookingType":{
+         "bookingTypeId":"portraitpersonal",
+         "status":"ACTIVE",
+         "serviceType":"PERSONAL",
+         "name":"Portrait",
+         "updatedTime":null,
+         "createdTime":"2019-03-07T18:37:07.933"
+      },
+      "updatedTime":"2019-03-10T19:35:44.39",
+      "createdTime":"2019-03-10T19:01:38.792",
+      "photographerEmail": ""
+   } 
+ ]

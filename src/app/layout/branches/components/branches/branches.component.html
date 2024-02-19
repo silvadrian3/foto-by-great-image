@@ -1,0 +1,335 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+  <app-page-header [heading]="'Branches'" [icon]="'fa-fw fa-home'"></app-page-header>
+  
+    <div class="card">
+      
+      <div class="card-header">
+        <i class="fa fa-fw fa-home" aria-hidden="true"></i> Branches
+        
+      </div>
+
+      <div class="clear-filler"></div>
+      
+      <div class="col-lg-12">
+
+        <div class="col-lg-3">
+            <!-- <div class="pull-left">
+              <div class="input-group">
+                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-info">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </span>  
+                <input #gb type="text" pInputText class="form-control" placeholder="Search">
+              </div>
+            </div> -->
+        </div>
+
+        <div class="col-lg-3 col-lg-offset-6">
+            <div class="pull-right">
+              <button type="button" routerLink="create-branch" class="btn btn-info pull-right">Create Branch</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12">
+          <div class="col-lg-12 table-responsive">
+            <div class="clear-filler"></div>
+            <div class="clear-filler"></div>
+
+            <data-table id="branches-grid"
+                headerTitle=""
+                [items]="branches"
+                [itemCount]="branchesCount"
+                (reload)="reloadBranches($event)"
+                [limit]="10"
+                [sortBy]="'name'"
+                [sortAsc]="true"
+                [selectColumn]="false"
+                [multiSelect]="false"
+                [substituteRows]="false"
+                [expandableRows]="false"
+                [translations]="translations"
+                [indexColumnHeader]="'#'"
+                [selectOnRowClick]="true"
+                >
+                <!-- <ng-template #dataTableExpand let-item="item">
+                    <div [textContent]="item.description" style="padding: 5px; color: gray"></div>
+                </ng-template>
+                 -->
+                <data-table-column
+                    [property]="'name'"
+                    [header]="'Name'"
+                    [sortable]="true">
+                </data-table-column>
+
+                <data-table-column
+                  [property]="'address'"
+                  [header]="'Address'"
+                  [sortable]="true">
+                  <ng-template #dataTableCell let-item="item">
+                    {{ 
+                      item.address.address1 + ' ' + 
+                      item.address.address2 + ' ' + 
+                      item.address.city + ' ' + 
+                      item.address.state + ' '
+
+                    }}
+                  </ng-template>
+                </data-table-column>
+
+                <data-table-column
+                [property]="'email'"
+                [header]="'Email Address'"
+                [sortable]="true">
+                </data-table-column>
+
+                <data-table-column
+                  [property]="'contactNumber'"
+                  [header]="'Contact Number'"
+                  [sortable]="true">
+                  <ng-template #dataTableCell let-item="item">
+                    {{ item.contactNumbers[0] }}
+                  </ng-template>
+                </data-table-column>
+
+                <data-table-column
+                  [property]="'action'"
+                  [header]="'Action'"
+                  style="width:10%;">
+                  <ng-template #dataTableCell let-item="item">
+                      <span 
+                        class="fa fa-search row-action row-search" 
+                        title="View" 
+                        (click)="getBranchDetailsRow(item.branchId); open(content)">
+                      </span>
+                      <span 
+                        class="fa fa-pencil row-action row-edit"
+                        title="Update"
+                        [routerLink]="['update-branch']"
+                        [queryParams]="{id:item.branchId}">
+                      </span>
+                      <span 
+                        class="fa fa-times row-action row-delete"
+                        title="Archive"
+                        (click)="deleteBranchDetailsRow(item.branchId)">
+                      </span>
+
+                  </ng-template>
+                </data-table-column>
+            </data-table>
+
+            
+
+            <div class="clear-filler"></div> 
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+        <div class="col-lg-12">
+          <div class="col-lg-12 text-center">
+            <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+
+      <!-- Start - Modal -->
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h6 class="modal-title"> Branch Details</h6>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+              <label>Name</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedBranchDetails.name }}
+                <span [hidden]="selectedBranchDetails.name != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Address 1</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedBranchDetails.address.address1 }}
+                <span [hidden]="selectedBranchDetails.address.address1 != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Address 2</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedBranchDetails.address.address2 }}
+                <span [hidden]="selectedBranchDetails.address.address2 != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>City</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedBranchDetails.address.city }}
+                <span [hidden]="selectedBranchDetails.address.city != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Region</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedBranchDetails.address.state }}
+                <span [hidden]="selectedBranchDetails.address.state != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Zipcode</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedBranchDetails.address.zipcode }}
+                <span [hidden]="selectedBranchDetails.address.zipcode != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Country</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedBranchDetails.address.country }}
+                <span [hidden]="selectedBranchDetails.address.country != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+              <div class="col-lg-6">
+              <label>Latitude</label>
+              </div>
+              <div class="col-lg-6">
+                <p>
+                  {{ selectedBranchDetails.address.location.latitude }}
+                  <span [hidden]="selectedBranchDetails.address.location.latitude != '' && selectedBranchDetails.address.location.latitude != 0">N/A</span>
+                  
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+              <label>Longitude</label>
+              </div>
+              <div class="col-lg-6">
+                <p>
+                  {{ selectedBranchDetails.address.location.longitude }}
+                  <span [hidden]="selectedBranchDetails.address.location.longitude != '' && selectedBranchDetails.address.location.longitude != 0">N/A</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+              <label>Email Address</label>
+              </div>
+              <div class="col-lg-6">
+                <p>
+                  {{ selectedBranchDetails.email }}
+                  <span [hidden]="selectedBranchDetails.email != ''">N/A</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+              <label>Contact Number</label>
+              </div>
+              <div class="col-lg-6">
+                <p>
+                  {{ selectedBranchDetails.contactNumbers[0] }}
+                  <span [hidden]="selectedBranchDetails.contactNumbers[0] != ''">N/A</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+              <label>Opens At</label>
+              </div>
+              <div class="col-lg-6">
+                <p>
+                  {{ selectedBranchDetails.openAt }}
+                  <span [hidden]="selectedBranchDetails.openAt != ''">N/A</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+              <label>Closes At</label>
+              </div>
+              <div class="col-lg-6">
+                <p>
+                  {{ selectedBranchDetails.closesAt }}
+                  <span [hidden]="selectedBranchDetails.closesAt != ''">N/A</span>
+                </p>
+              </div>
+            </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Date Modified</label>
+            </div>
+            <div class="col-lg-6">
+            <p *ngIf="selectedBranchDetails.updatedTime != null">{{ selectedBranchDetails.updatedTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+            <p *ngIf="selectedBranchDetails.updatedTime == null">{{ selectedBranchDetails.createdTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <div class="col-lg-12"> 
+            <div class="text-center col-lg-12">
+              <button 
+                type="button" 
+                class="btn btn-secondary" 
+                style="margin: 3px 10px;" 
+                (click)="d('Cross click')">
+                Close
+              </button>
+            </div>
+            <div class="clear-filler"></div>
+          
+        </div>
+          
+      </div>
+      </ng-template>
+    
+      <!-- End - Modal -->
+
+    </div>
+  </div>

@@ -1,0 +1,61 @@
+.row-action {
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.row-search {
+    color: #FF8D33;
+}
+
+.row-edit {
+    color: #33A2FF;
+}
+
+.row-delete {
+    color: #ff0000;
+}
+
+.pagination-box {
+    margin-top: 1% !important;
+}
+
+.pagination-page .input-group .input-group-addon {
+    display: inline;
+}
+
+.index-column-header, .index-column {
+    text-align: center;
+}
+
+.column-header {
+    text-align: center;
+    font-weight: 700;
+}
+
+.data-column {
+    word-wrap: break-word;
+}
+
+.column-header.column-action {
+    width: 10%;
+}
+
+.data-column.column-action {
+    text-align: center;
+}
+
+.column-header.column-price {
+    width: 25%;
+}
+
+.data-column.column-price {
+    text-align: right;
+}
+
+.column-header.column-description {
+    width: 65%;
+}
+
+.multiline-paragraph {
+    white-space: pre-line; 
+}

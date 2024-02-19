@@ -1,0 +1,298 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+  <app-page-header [heading]="'Products'" [icon]="'fa-fw fa-tags'"></app-page-header>
+  
+    <div class="card">
+      
+      <div class="card-header">
+        <i class="fa fa-fw fa-tags" aria-hidden="true"></i> Products
+        
+      </div>
+
+      <div class="clear-filler"></div>
+      
+  
+      <div class="col-lg-12">
+
+        <div class="col-lg-3">
+            <!-- <div class="pull-left">
+              <div class="input-group">
+                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-info">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </span>  
+                <input #gb type="text" pInputText class="form-control" placeholder="Search">
+              </div>
+            </div> -->
+        </div>
+
+        <div class="col-lg-3 col-lg-offset-6">
+            <div class="pull-right">
+              <button type="button" routerLink="create-product" class="btn btn-info pull-right">Create Product</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12" >
+          <div class="col-lg-12 table-responsive">
+            <div class="clear-filler"></div>
+            <div class="clear-filler"></div> 
+            <!--
+            <p-dataTable 
+              [value]="products"
+              sortMode="multiple"
+              [rows]="10"
+              [paginator]="true"
+              [pageLinks]="3"
+              [responsive]="true"
+              [rowsPerPageOptions]="[10,25,50,100]"
+              [globalFilter]="gb" #dt> 
+              <p-column
+                field="name"
+                header="Name"
+                [sortable]="true"
+                [style]="{'width':'20%'}"> 
+              </p-column>
+
+              <p-column
+                field="creditType"
+                header="Type"
+                [sortable]="true"
+                [style]="{'width':'15%'}"> 
+              </p-column>
+
+              <p-column
+                field="credits"
+                header="Credits"
+                [sortable]="true"
+                [style]="{'width':'14%'}"> 
+              </p-column>
+
+              <p-column 
+                field="price" 
+                header="Price" 
+                [sortable]="true" 
+                [style]="{'width':'20%', 'text-align':'center'}">
+                <ng-template 
+                  let-productDetails="rowData" 
+                  pTemplate="body">
+                    {{ productDetails.price | currency: 'PHP': true}}
+                </ng-template>  
+              </p-column>
+
+              <p-column
+                field="action"
+                header="Action"
+                [sortable]="false"
+                [style]="{'width':'10%', 'text-align': 'center'}">
+                <ng-template 
+                  let-ProductDetails="rowData"
+                  pTemplate="body">
+                    <span 
+                      class="fa fa-search row-action row-search" 
+                      title="View" 
+                      (click)="getProductDetailsRow(ProductDetails.productId); open(content)">
+                    </span>
+                    <span 
+                      class="fa fa-pencil row-action row-edit"
+                      title="Update"
+                      [routerLink]="['update-product']"
+                      [queryParams]="{id:ProductDetails.productId}">
+                    </span>
+                    <span 
+                      class="fa fa-times row-action row-delete"
+                      title="Archive"
+                      (click)="deleteProductDetailsRow(ProductDetails.productId)">
+                    </span>
+                </ng-template>
+              </p-column>
+            </p-dataTable>
+          -->
+          
+            <data-table id="products-grid"
+                headerTitle=""
+                [items]="products"
+                [itemCount]="productCount"
+                (reload)="reloadProducts($event)"
+                [limit]="10"
+                [sortBy]="'name'"
+                [sortAsc]="true"
+                [selectColumn]="false"
+                [multiSelect]="false"
+                [substituteRows]="false"
+                [expandableRows]="false"
+                [translations]="translations"
+                [indexColumnHeader]="'#'"
+                [selectOnRowClick]="true"
+                >
+                <!-- <ng-template #dataTableExpand let-item="item">
+                    <div [textContent]="item.description" style="padding: 5px; color: gray"></div>
+                </ng-template>
+                 -->
+                <data-table-column
+                    [property]="'name'"
+                    [header]="'Name'"
+                    [sortable]="true">
+                </data-table-column>
+                <data-table-column
+                    [property]="'creditType'"
+                    [header]="'Type'"
+                    [sortable]="true">
+                </data-table-column>
+                <data-table-column
+                    [property]="'credits'"
+                    [header]="'Credits'"
+                    [sortable]="true">
+                </data-table-column>
+                <data-table-column
+                  [property]="'price'"
+                  [header]="'Price'"
+                  [sortable]="true">
+                  <ng-template #dataTableCell let-item="item">
+                    {{ item.price | currency: 'PHP': true}}
+                  </ng-template>
+                </data-table-column>
+
+                <!-- <data-table-column
+                    [property]="'name'"
+                    [header]="'Name + Credit Type'"
+                    [sortable]="true">
+                    <ng-template #dataTableCell let-item="item">
+                      <span>{{ item.name + ' ' + item.creditType}}</span>
+                  </ng-template> 
+                </data-table-column>
+                -->
+
+                <data-table-column
+                [property]="'action'"
+                [header]="'Action'"
+                style="width:10%;">
+                <ng-template #dataTableCell let-item="item">
+                    <span 
+                      class="fa fa-search row-action row-search" 
+                      title="View" 
+                      (click)="getProductDetailsRow(item.productId); open(content)">
+                    </span>
+                    <span 
+                      class="fa fa-pencil row-action row-edit"
+                      title="Update"
+                      [routerLink]="['update-product']"
+                      [queryParams]="{id:item.productId}">
+                    </span>
+                    <span 
+                      class="fa fa-times row-action row-delete"
+                      title="Archive"
+                      (click)="deleteProductDetailsRow(item.productId)">
+                    </span>
+                </ng-template>
+                </data-table-column>
+            </data-table>
+
+            <!-- <div style="margin-top: 10px">
+                <b>Selected:</b>
+                <span *ngIf="productsTable.selectedRow == null"><i>No item selected</i></span>
+                <span [textContent]="productsTable.selectedRow && productsTable.selectedRow.item.title"></span>
+            </div> -->
+          
+            <div class="clear-filler"></div> 
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+        <div class="col-lg-12">
+          <div class="col-lg-12 text-center">
+            <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+
+
+
+
+
+
+      <!-- Start - Modal -->
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h6 class="modal-title"> Product Details</h6>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+              <label>Name</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedProductDetails.name }}
+                <span [hidden]="selectedProductDetails.name != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Type</label>
+            </div>
+            <div class="col-lg-6">
+              <p>{{ selectedProductDetails.creditType }}</p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+              <div class="col-lg-6">
+                <label>Credits</label>
+              </div>
+              <div class="col-lg-6">
+                <p>{{ selectedProductDetails.credits }}</p>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+              <label>Price</label>
+              </div>
+              <div class="col-lg-6">
+                <p>
+                  {{ selectedProductDetails.price | currency : 'PHP' : true }}
+              </p>
+              </div>
+            </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Date Modified</label>
+            </div>
+            <div class="col-lg-6">
+            <p *ngIf="selectedProductDetails.updatedTime != null">{{ selectedProductDetails.updatedTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+            <p *ngIf="selectedProductDetails.updatedTime == null">{{ selectedProductDetails.createdTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <div class="col-lg-12"> 
+            <div class="text-center col-lg-12">
+              <button 
+                type="button" 
+                class="btn btn-secondary" 
+                style="margin: 3px 10px;" 
+                (click)="d('Cross click')">
+                Close
+              </button>
+            </div>
+            <div class="clear-filler"></div>
+          
+        </div>
+          
+      </div>
+      </ng-template>
+      <!-- End - Modal -->
+
+    </div>
+  </div>

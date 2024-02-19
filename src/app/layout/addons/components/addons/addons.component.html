@@ -1,0 +1,174 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+  <app-page-header [heading]="'AddOns'" [icon]="'fa-fw fa-plus-square'"></app-page-header>
+  
+    <div class="card">
+      
+      <div class="card-header">
+        <i class="fa fa-fw fa-plus-square" aria-hidden="true"></i> AddOns
+      </div>
+
+      <div class="clear-filler"></div>
+  
+      <div class="col-lg-12">
+
+        <div class="col-lg-3">
+            <!-- <div class="pull-left">
+              <div class="input-group">
+                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-info">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </span>  
+                <input #gb type="text" pInputText class="form-control" placeholder="Search">
+              </div>
+            </div> -->
+        </div>
+
+        <div class="col-lg-3 col-lg-offset-6">
+            <div class="pull-right">
+              <button type="button" routerLink="create-addons" class="btn btn-info pull-right">Create AddOns</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12" >
+          <div class="col-lg-12 table-responsive">
+            <div class="clear-filler"></div>
+            <div class="clear-filler"></div> 
+            
+            <data-table id="addons-grid"
+                headerTitle=""
+                [items]="addons"
+                [itemCount]="addonsCount"
+                (reload)="reloadAddons($event)"
+                [limit]="10"
+                [sortBy]="'description'"
+                [sortAsc]="true"
+                [selectColumn]="false"
+                [multiSelect]="false"
+                [substituteRows]="false"
+                [expandableRows]="false"
+                [translations]="translations"
+                [indexColumnHeader]="'#'"
+                [selectOnRowClick]="true"
+                >
+                <!-- <ng-template #dataTableExpand let-item="item">
+                    <div [textContent]="item.description" style="padding: 5px; color: gray"></div>
+                </ng-template>
+                 -->
+                <data-table-column
+                    [property]="'description'"
+                    [header]="'Name'"
+                    [sortable]="true">
+                </data-table-column>
+                <data-table-column
+                  [property]="'price'"
+                  [header]="'Price'"
+                  [sortable]="true">
+                  <ng-template #dataTableCell let-item="item">
+                    {{ item.price | currency: 'PHP': true}}
+                  </ng-template>
+                </data-table-column>
+
+                <data-table-column
+                [property]="'action'"
+                [header]="'Action'"
+                style="width:10%;">
+                <ng-template #dataTableCell let-item="item">
+                    <span 
+                      class="fa fa-search row-action row-search" 
+                      title="View" 
+                      (click)="getAddonsDetailsRow(item.id); open(content)">
+                    </span>
+                    <span 
+                      class="fa fa-pencil row-action row-edit"
+                      title="Update"
+                      [routerLink]="['update-addons']"
+                      [queryParams]="{id:item.id}">
+                    </span>
+                    <span 
+                      class="fa fa-times row-action row-delete"
+                      title="Archive"
+                      (click)="deleteAddonsDetailsRow(item.id)">
+                    </span>
+                </ng-template>
+                </data-table-column>
+            </data-table>
+          
+            <div class="clear-filler"></div> 
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+        <div class="col-lg-12">
+          <div class="col-lg-12 text-center">
+            <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+
+      <!-- Start - Modal -->
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h6 class="modal-title"> AddOns Details</h6>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Name</label>
+            </div>
+            <div class="col-lg-6">
+              <p class="multiline-paragraph" [innerHTML]="selectedAddonsDetails.description">
+                <span [hidden]="selectedAddonsDetails.name != ''">N/A</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Price</label>
+            </div>
+            <div class="col-lg-6">
+              <p>
+                {{ selectedAddonsDetails.price | currency : 'PHP' : true }}
+            </p>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+            <label>Date Modified</label>
+            </div>
+            <div class="col-lg-6">
+            <p *ngIf="selectedAddonsDetails.updatedTime != null">{{ selectedAddonsDetails.updatedTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+            <p *ngIf="selectedAddonsDetails.updatedTime == null">{{ selectedAddonsDetails.createdTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <div class="col-lg-12"> 
+            <div class="text-center col-lg-12">
+              <button 
+                type="button" 
+                class="btn btn-secondary" 
+                style="margin: 3px 10px;" 
+                (click)="d('Cross click')">
+                Close
+              </button>
+            </div>
+            <div class="clear-filler"></div>
+          
+        </div>
+          
+      </div>
+      </ng-template>
+      <!-- End - Modal -->
+
+    </div>
+  </div>

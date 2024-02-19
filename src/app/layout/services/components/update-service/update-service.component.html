@@ -1,0 +1,182 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+    <app-page-header [heading]="'Update Service'" [icon]="'fa-fw fa-pencil-square-o'"></app-page-header>
+    
+    <!-- <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert> -->
+
+    <div class="col-lg-8 col-lg-offset-2 form-group">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update Service
+      </div>
+  
+      <div class="clear-filler"></div>
+      <div class="clear-filler"></div>
+      
+      <form role="form" (ngSubmit)="updateService()" ngNativeValidate>
+          <div class="col-lg-10 col-lg-offset-1 form-body">
+          <div class="col-lg-12">
+              <div class="col-lg-12 form-group">
+                <h4>Service Details</h4>
+            </div>
+          </div>
+        
+
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-12">
+              <label>Name</label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="name" readonly>
+            </div>
+          </div>
+        
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-12">
+              <label>Service Type</label>
+              <input type="text" class="form-control" name="serviceType" [(ngModel)]="serviceType" readonly>
+            </div>
+          </div>
+
+          <!--
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-8">
+              <label>Icon </label>
+              <div class="input-group" [hidden]="hdIconFileUpload">
+                  <input 
+                    type="file" 
+                    multiple="false"
+                    class="form-control-file form-control"
+                    (change)="onFileIconSelected($event)"
+                    #fileUploadIcon>
+                </div>
+
+                <div class="col-lg-12" [hidden]="!hdIconFileUpload">
+                <div class="row">
+                  <img 
+                    src="{{iconUrl}}"
+                    class="img img-responsive img-thumbnail preview-img-holder form-group"/>
+                
+                  <div class="input-group">
+                    <input 
+                      type="button" 
+                      class="btn btn-info btn-sm"
+                      value="Change Photo"
+                      (click)="hdIconFileUpload = false">
+                  </div>
+                  </div>
+                  
+              </div>
+            </div>
+          </div> 
+  
+          <div class="col-lg-12 form-group">
+              <div class="col-lg-8">
+                <label>Banner </label>
+                <div class="input-group" [hidden]="hdBannerFileUpload">
+                    <input 
+                      type="file" 
+                      multiple="false"
+                      class="form-control-file form-control"
+                      (change)="onFileBannerSelected($event)"
+                      #fileUploadBanner>
+                  </div>
+  
+                  <div class="col-lg-12" [hidden]="!hdBannerFileUpload">
+                  <div class="row">
+                    <img 
+                      src="{{bannerUrl}}"
+                      class="img img-responsive img-thumbnail preview-img-holder form-group"/>
+                  
+                    <div class="input-group">
+                      <input 
+                        type="button" 
+                        class="btn btn-info btn-sm"
+                        value="Change Photo"
+                        (click)="hdBannerFileUpload = false">
+                    </div>
+                    </div>
+                    
+                </div>
+              </div>
+            </div> 
+          -->
+          
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-12">
+              <label>Description </label>
+              <div class="input-group">
+                <textarea class="form-control" name="description" [(ngModel)]="description" rows="5"></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-12 form-group" *ngIf="addOns.length > 0">
+            <div class="col-lg-12">
+              <label>Add-Ons</label>
+              <ng-select
+                [multiple]="true"
+                [items]="addOns"
+                (data)="refreshAddOnsValue($event)"
+                [(ngModel)]="defaultAddOns"
+                name="defaultAddOns"
+                placeholder="Choose Add-Ons"
+                notFoundText="'No result found.''">
+              </ng-select>
+            </div>
+          </div>
+  
+          <div class="col-lg-12 form-group" *ngIf="packages.length > 0">
+            <div class="col-lg-12">
+              <label>Packages</label>
+              <ng-select
+                [multiple]="true"
+                [items]="packages"
+                (data)="refreshPackagesValue($event)"
+                [(ngModel)]="defaultPackages"
+                name="defaultPackages"
+                placeholder="Choose Packages"
+                notFoundText="'No result found.''">
+              </ng-select>
+            </div>
+          </div>
+          
+          <div class="col-lg-12 form-group">
+            <div class="col-lg-12">
+                <label>Featured Service </label><br/>
+              <ui-switch name="isFeatured" size="small" [(ngModel)]="isFeatured"></ui-switch>
+            </div>
+          </div>
+
+          <!-- <div class="col-lg-12 form-group">
+            <div class="col-lg-6">
+              <label>
+                <Input type="checkbox" (change)="chkIsFeatured($event)" [checked]="isFeatured"> <strong>Featured Service</strong> </label>
+            </div>
+          </div> -->
+  
+          <div class="clear-filler"></div>
+          <div class="clear-filler"></div>
+          <div class="col-lg-12 text-center form-group">
+            <div class="col-lg-2 col-lg-offset-4">
+              <button type="submit" class="btn btn-success"> Submit </button>
+            </div>
+            <div class="col-lg-2">
+              <button 
+                type="button" 
+                routerLink="/services" 
+                class="btn btn-warning"> 
+                  Cancel 
+              </button>
+            </div>
+          </div>
+  
+        </div>
+      </form>
+      <div class="clear-filler"></div>
+      <div class="col-lg-10 col-lg-offset-1 text-center">
+          <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+        </div>
+      <div class="clear-filler"></div>
+    
+    </div>
+  </div>
+  </div>

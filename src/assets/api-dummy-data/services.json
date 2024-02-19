@@ -1,0 +1,24 @@
+[
+  {
+     "bookingTypeId":"portraitbusiness",
+     "status":"ACTIVE",
+     "serviceType":"BUSINESS",
+     "name":"Portrait",
+     "price":5999.0,
+     "inclusion":"2 hr shoot at your selected location, 25 high resolution photos, Image enhancement, Usage Rights for Commercial and Editorial use",
+     "addOns":"Extra hr Php 3,500.00, Additional 10 images Php 3,000.00, All photos: Php 6,000.00, Studio use Php 2,500/hr",
+     "updatedTime":null,
+     "createdTime":"2019-03-13T18:06:08.312"
+  },
+  {
+     "bookingTypeId":"portraitpersonal",
+     "status":"ACTIVE",
+     "serviceType":"PERSONAL",
+     "name":"Portrait",
+     "price":5999.0,
+     "inclusion":"2 hr shoot at your selected location, 25 high resolution photos, Image enhancement, Usage Rights",
+     "addOns":"Extra hr Php 2,500.00, Additional 10 images Php 1,000.00, All photos: Php 3,000.00",
+     "updatedTime":null,
+     "createdTime":"2019-03-13T18:04:00.496"
+  }
+]

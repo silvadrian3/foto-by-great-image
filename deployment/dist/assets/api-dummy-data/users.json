@@ -1,0 +1,67 @@
+[
+   {
+      "createdTime": "2019-03-30T10:32:51.708Z",
+      "email": "eturpey1@usda.tst",
+      "firstName": "Evanne",
+      "lastLoginTime": "2019-03-30T10:32:51.708Z",
+      "lastName": "Turpey",
+      "mobileNumber": "+63 917 806 6306",
+      "password": "string",
+      "role": "ADMIN",
+      "updatedTime": "2019-03-30T10:32:51.708Z",
+      "userId": "5710239819104256",
+      "username": "eturpey1"
+   },
+   {
+      "createdTime": "2019-03-30T10:32:51.708Z",
+      "email": "gbolver2@hud.tst",
+      "firstName": "Gussie",
+      "lastLoginTime": "2019-03-30T10:32:51.708Z",
+      "lastName": "Bolver",
+      "mobileNumber": "+63 917 816 6556",
+      "password": "string",
+      "role": "ADMIN",
+      "updatedTime": "2019-03-30T10:32:51.708Z",
+      "userId": "5410439813104256",
+      "username": "gbolver2"
+   },
+   {
+      "createdTime": "2019-03-30T10:32:51.708Z",
+      "email": "dtosmsettsa3@foxnews.tst",
+      "firstName": "Delora",
+      "lastLoginTime": "2019-03-30T10:32:51.708Z",
+      "lastName": "Tomsett",
+      "mobileNumber": "+63 915 156 6001",
+      "password": "string",
+      "role": "PHOTOGRAPHER",
+      "updatedTime": "2019-03-30T10:32:51.708Z",
+      "userId": "5410439813114256",
+      "username": "dtosmsettsa3"
+   },
+   {
+      "createdTime": "2019-03-30T10:32:51.708Z",
+      "email": "pmanaloto@foxnews.tst",
+      "firstName": "Pepito",
+      "lastLoginTime": "2019-03-30T10:32:51.708Z",
+      "lastName": "Manaloto",
+      "mobileNumber": "+63 915 156 6001",
+      "password": "string",
+      "role": "PHOTOGRAPHER",
+      "updatedTime": "2019-03-30T10:32:51.708Z",
+      "userId": "5410439813114256",
+      "username": "pmanaloto"
+   },
+   {
+      "createdTime": "2019-03-30T10:32:51.708Z",
+      "email": "adaml@vine.new",
+      "firstName": "Adam",
+      "lastLoginTime": "2019-03-30T10:32:51.708Z",
+      "lastName": "Lavine",
+      "mobileNumber": "+63 915 156 6001",
+      "password": "string",
+      "role": "PHOTOGRAPHER",
+      "updatedTime": "2019-03-30T10:32:51.708Z",
+      "userId": "5410439813114256",
+      "username": "adaml"
+   }
+]

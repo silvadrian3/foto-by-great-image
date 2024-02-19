@@ -1,0 +1,522 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+   <div [@routerTransition]>
+<app-page-header [heading]="'Active Bookings'" [icon]="'fa-fw fa-calendar'"></app-page-header>
+
+<div class="card">
+    
+    <div class="card-header">
+      <i class="fa fa-calendar" aria-hidden="true"></i> Service
+    </div>
+
+    <div class="clear-filler"></div>
+      <div class="col-lg-12">
+          <div class="col-lg-3">
+            <!-- <div class="pull-left">
+              <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-info">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>  
+                <input #gb type="text" pInputText class="form-control" placeholder="Search">
+              </div>
+              </div> -->
+          </div>
+      
+        <div class="col-lg-3 col-lg-offset-6">
+          <div class="pull-right">
+            <button type="button" routerLink="create-service" class="btn btn-info pull-right">Create Service</button>
+          </div>
+        </div>
+
+      </div>
+        
+        <div class="col-lg-12">
+          <div class="col-lg-12 table-responsive">
+            <div class="clear-filler"></div>
+            <div class="clear-filler"></div>
+
+            <data-table id="services-grid"
+                headerTitle=""
+                [items]="services"
+                [itemCount]="servicesCount"
+                (reload)="reloadServices($event)"
+                [limit]="10"
+                [sortBy]="'name'"
+                [sortAsc]="true"
+                [selectColumn]="false"
+                [multiSelect]="false"
+                [substituteRows]="false"
+                [expandableRows]="true"
+                [translations]="dtTranslations"
+                [indexColumnHeader]="'#'"
+                [selectOnRowClick]="true"
+                (rowClick)="expandRow($event)"
+                >
+                <ng-template #dataTableExpand let-item="item">
+                    <div class="clear-filler"></div>
+                    <div class="col-lg-12">
+                      <tabset>
+                        <tab heading="Details" class="services-tabs">
+                            <div class="row expanded-description">  
+                                <div class="col-lg-12">
+                                  <div class="clear-filler"></div>
+                                  <div class="clear-filler"></div>
+                                  </div>
+
+                                  <div class="col-lg-12">
+                                      <div class="row">
+                                        <div class="col-lg-5">
+                                          <label>Service Name</label>
+                                        </div>
+                                        <div class="col-lg-7">
+                                          <p>
+                                              {{ item.name }}
+                                              <span [hidden]="item.name != ''">N/A</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                  
+                                      <div class="row">
+                                        <div class="col-lg-5">
+                                          <label>Service Type</label>
+                                        </div>
+                                        <div class="col-lg-7">
+                                          <p>
+                                              {{ item.serviceType }}
+                                              <span [hidden]="item.serviceType != ''">N/A</span>
+                                          </p>
+                                        </div>
+                                      </div>
+
+                                      <!-- 
+                                      <div class="row">
+                                        <div class="col-lg-5">
+                                          <label>Price</label>
+                                        </div>
+                                        <div class="col-lg-7">
+                                          <p>
+                                              {{ item.price | currency : 'PHP' : true }}
+                                              <span [hidden]="item.price != '' && item.price != null">N/A</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                      -->
+                                      <div class="row">
+                                        <div class="col-lg-5">
+                                          <label>Description</label>
+                                        </div>
+                                        <div class="col-lg-7">
+                                          <p class="multiline-paragraph">{{ item.description }}<span [hidden]="item.description != '' && item.description != null">N/A</span></p>
+                                        </div>
+                                      </div>
+
+                                      <div class="row">
+                                          <div class="col-lg-5">
+                                            <label>Featured Service</label>
+                                          </div>
+                                          <div class="col-lg-7">
+                                            <p *ngIf="item.featured">Yes</p>
+                                            <p *ngIf="!item.featured">No</p>
+                                          </div>
+                                      </div>
+
+                                      <div class="row" *ngIf="item.servicePackages != null">
+                                          <div class="col-lg-5">
+                                            <label>Packages</label>
+                                          </div>
+                                          <div class="col-lg-7">
+                                              <ul>
+                                                <li *ngFor="let packages of item.servicePackages">
+                                                  <b>{{packages.name}}</b>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                      </div>
+
+                                      <div class="row" *ngIf="item.serviceAddOns != null">
+                                          <div class="col-lg-5">
+                                            <label>AddOns</label>
+                                          </div>
+                                          <div class="col-lg-7">
+                                              <ul>
+                                                <li *ngFor="let addons of item.serviceAddOns">
+                                                  <b>{{addons.description}}</b>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                      </div>
+                                          
+                                      <div class="row">
+                                          <div class="col-lg-5">
+                                            <label>Date Modified</label>
+                                          </div>
+                                          <div class="col-lg-7">
+                                              <p *ngIf="item.updatedTime != null">{{ item.updatedTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+                                              <p *ngIf="item.updatedTime == null">{{ item.createdTime | date : 'dd MMM yyyy hh:mm a' }}</p>
+                                          </div>
+                                      </div>
+
+                                  </div>
+
+                                  <div class="col-lg-12">
+                                  <div class="clear-filler"></div>
+                                </div>
+                              </div>
+                        </tab>
+
+                        <!--
+                        <tab heading="Packages" class="services-tabs" (select)="readService(item.id, 'packages')">
+                          <div class="row form-group">
+                            <div class="clear-filler"></div>
+                            <div class="clear-filler"></div>
+                            
+                            <div class="col-lg-12 form-group">
+                              <div class="col-lg-12">
+                                <ng-select
+                                  [multiple]="true"
+                                  [items]="packages"
+                                  (data)="refreshPackagesValue($event)"
+                                  [(ngModel)]="defaultPackages"
+                                  name="defaultPackages"
+                                  placeholder="Choose Packages"
+                                  notFoundText="'No result found.''">
+                                </ng-select>
+                              </div>
+                            
+                              <div class="clear-filler"></div>
+                              <div class="clear-filler"></div>
+
+                              
+                              <div class="col-lg-12 text-center form-group">
+                                <button type="button" (click)="savePackages(item.id)" class="btn btn-success"> Save Packages </button>
+                              </div>
+                            </div>
+
+                          </div>
+                        </tab>
+
+                        <tab heading="Add-Ons" class="services-tabs" (select)="readService(item.id, 'addons')">
+                            <div class="row form-group">
+                              <div class="clear-filler"></div>
+                              <div class="clear-filler"></div>
+                              <div class="col-lg-12 form-group">
+                                <div class="col-lg-12">
+                                  <ng-select
+                                    [multiple]="true"
+                                    [items]="addOns"
+                                    (data)="refreshAddOnsValue($event)"
+                                    [(ngModel)]="defaultAddOns"
+                                    name="defaultAddOns"
+                                    placeholder="Choose Add-Ons"
+                                    notFoundText="'No result found.''">
+                                  </ng-select>
+                                </div>
+                              
+                                <div class="clear-filler"></div>
+                                <div class="clear-filler"></div>
+
+                                <div class="col-lg-12 text-center form-group">
+                                  <button type="button" (click)="saveAddons(item.id)" class="btn btn-success"> Save Addons </button>
+                                </div>
+
+                              </div>
+
+                          </div>
+                        </tab>   
+                        -->
+
+                        
+
+                        <tab heading="Banner" class="services-tabs" (select)="readService(item.id, 'banners')">
+                            <div class="row form-group">
+                                <div class="clear-filler"></div>
+                                <div class="clear-filler"></div>
+                                
+                                <span [hidden]="item.bannerUrl != '' && item.bannerUrl != null">
+                                  <div class="col-lg-12">
+                                    <img 
+                                      src="../../../../../assets/images/add-banner.png" 
+                                      class="img img-responsive img-thumbnail preview-banners-holder" 
+                                      (click)="bannerUploadInput.click()" />
+            
+                                    <input 
+                                      type="file" 
+                                      style="display:none"
+                                      multiple="true"
+                                      (change)="onBannerSelected($event, item.id)"
+                                      #bannerUploadInput>
+                                  </div>
+                                </span>
+            
+                                <span [hidden]="displayUploadBanner && item.id == selectedServiceId" *ngIf="item.bannerUrl != '' && item.bannerUrl != null">
+                                  <!-- <div class="col-lg-12">
+                                    <img src="{{item.bannerUrl}}" class="img img-responsive img-thumbnail preview-banners-holder"/>
+                                  </div> -->
+
+                                  <span *ngIf="selectedServiceBanner != undefined && selectedServiceBanner != []">
+                                    <span *ngFor="let serviceBanner of selectedServiceBanner">
+                                        <span *ngIf="serviceBanner.selectedServiceId != undefined && serviceBanner.selectedServiceId == item.id">
+                                          
+                                            <div class="col-lg-12">
+                                              <img 
+                                                src="{{serviceBanner.data}}" 
+                                                class="img img-responsive img-thumbnail preview-banners-holder"
+                                                (click)="photoPreview(serviceBanner.data); open(content)"
+                                              />
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                              <button 
+                                                type="button" 
+                                                class="btn btn-info btn-sm"
+                                                (click)="bannerUploadInput.click()">
+                                                Change Banner
+                                              </button>
+                                            </div>
+                                        </span>
+                                    </span>
+                                  </span>
+                                </span>
+
+                                <div class="clear-filler"></div>
+                                <div class="col-lg-12 text-center" [hidden]="item.id != selectedServiceId">
+                                  <ngb-alert [type]="panelAlert.type" (close)="closePanelAlert(panelAlert)" *ngFor="let panelAlert of panelAlerts">{{ panelAlert.message }}</ngb-alert>
+                                </div>
+                                
+                            </div>
+                        </tab>
+
+                        <tab heading="Icon" class="services-tabs" (select)="readService(item.id, 'icons')">
+                            <div class="row form-group">
+                                <div class="clear-filler"></div>
+                                <div class="clear-filler"></div>
+
+                                <span [hidden]="item.iconUrl != '' && item.iconUrl != null">
+                                    <div class="col-lg-12">
+                                      <img 
+                                        src="../../../../../assets/images/add-icon.png" 
+                                        class="img img-responsive img-thumbnail preview-icons-holder" 
+                                        (click)="iconUploadInput.click()" />
+              
+                                      <input 
+                                        type="file" 
+                                        style="display:none"
+                                        multiple="true"
+                                        (change)="onIconSelected($event, item.id)"
+                                        #iconUploadInput>
+                                    </div>
+                                  </span>
+
+                                  <span [hidden]="displayUploadIcon && item.id == selectedServiceId" *ngIf="item.iconUrl != '' && item.iconUrl != null">
+                                    <!-- <div class="col-lg-12">
+                                      <img src="{{item.iconUrl}}" class="img img-responsive img-thumbnail preview-icons-holder"/>
+                                    </div> -->
+
+                                    <span *ngIf="selectedServiceIcon != undefined && selectedServiceIcon != []">
+                                      <span *ngFor="let serviceIcon of selectedServiceIcon">
+                                          <span *ngIf="serviceIcon.selectedServiceId != undefined && serviceIcon.selectedServiceId == item.id">
+                                            
+                                              <div class="col-lg-12">
+                                                <img 
+                                                  src="{{serviceIcon.data}}" 
+                                                  class="img img-responsive img-thumbnail preview-icons-holder"
+                                                  (click)="photoPreview(serviceIcon.data); open(content)"
+                                                />
+                                              </div>
+  
+                                              <div class="col-lg-12">
+                                                  <button 
+                                                    type="button" 
+                                                    class="btn btn-info btn-sm"
+                                                    (click)="iconUploadInput.click()">
+                                                    Change Icon
+                                                  </button>
+                                                </div>
+                                          </span>
+                                      </span>
+                                    </span>
+
+                                  </span>
+
+                                  <div class="clear-filler"></div>
+                                  <div class="col-lg-12 text-center" [hidden]="item.id != selectedServiceId">
+                                    <ngb-alert [type]="panelAlert.type" (close)="closePanelAlert(panelAlert)" *ngFor="let panelAlert of panelAlerts">{{ panelAlert.message }}</ngb-alert>
+                                  </div>
+                            </div>
+                        </tab>
+
+                        <tab heading="Photos" class="services-tabs" (select)="readService(item.id, 'servicePhoto')">
+                            <div class="col-lg-12 form-group">
+                                <div class="clear-filler"></div>
+                                <div class="clear-filler"></div>
+                                
+                                  <div class="col-lg-3">
+                                    <img 
+                                      src="../../../../../assets/images/add-photos.png"
+                                      class="img img-responsive img-thumbnail preview-img-holder" 
+                                      (click)="photoUploadInput.click()" />
+            
+                                    <input 
+                                      type="file" 
+                                      style="display:none"
+                                      multiple="true"
+                                      (change)="onPhotoSelected($event, item.id)"
+                                      #photoUploadInput>
+                                  </div>
+                                
+                                <!-- <span *ngFor="let imgUrl of item.imageUrls">
+                                  <div class="col-lg-3">
+                                    <img 
+                                      src="{{imgUrl}}" 
+                                      class="img img-responsive img-thumbnail preview-img-holder" 
+                                      />
+                                  </div>
+                                </span> -->
+
+                                <span *ngIf="selectedServicePhotos != undefined && selectedServicePhotos != []">
+                                  <span *ngFor="let servicePhotos of selectedServicePhotos">
+                                      <span *ngIf="servicePhotos.selectedServiceId != undefined && servicePhotos.selectedServiceId == item.id">
+                                        <span *ngFor="let servicePhotoUrl of servicePhotos.data; index as i">
+                                          <div class="col-lg-3">
+                                            <img 
+                                              src="{{servicePhotoUrl}}" 
+                                              class="img img-responsive img-thumbnail preview-img-holder" 
+                                              (click)="getPhotoDetailsRow(i, servicePhotos.selectedServiceId); open(content)"
+                                            />
+                                          </div>
+                                        </span>
+                                      </span>
+                                  </span>
+                                </span>
+
+                                <span [hidden]="selectedServiceId != item.id">
+                                  
+                                <div class="col-lg-3" [hidden]="!loadingSpinner">
+                                  <div class="img-thumbnail preview-img-holder">
+                                    <ngx-spinner
+                                      bdOpacity = 0.9
+                                      bdColor = "#333333"
+                                      size = "medium"
+                                      color = "#fff"
+                                      type = "ball-clip-rotate"
+                                      fullScreen = "false"
+                                      loadingText="Uploading..."
+                                    ></ngx-spinner>
+                                  </div>
+                                </div>
+                              </span>
+                                
+                            </div>
+                        </tab>
+                      </tabset>
+                    </div>
+
+                </ng-template>
+                
+                <data-table-column
+                    [property]="'name'"
+                    [header]="'Service Name'"
+                    [sortable]="true">
+                </data-table-column>
+
+                <data-table-column
+                    [property]="'serviceType'"
+                    [header]="'Service Type'"
+                    [sortable]="true">
+                    <ng-template #dataTableCell let-item="item">
+                      <span>{{item.serviceType}}</span>
+                  </ng-template> 
+                </data-table-column>
+
+                <data-table-column
+                    [property]="'featured'"
+                    [header]="'Featured Service'"
+                    [sortable]="true">
+                    <ng-template #dataTableCell let-item="item">
+                      <span [hidden]="item.featured">No</span>
+                      <span [hidden]="!item.featured">Yes</span>
+                    </ng-template>
+                </data-table-column>
+
+                <data-table-column
+                [property]="'action'"
+                [header]="'Action'"
+                style="width:10%;">
+                  <ng-template #dataTableCell let-item="item">
+                    <span
+                      id="spUpdate" 
+                      class="fa fa-pencil row-action row-edit"
+                      title="Update"
+                      [routerLink]="['update-service']"
+                      [queryParams]="{id:item.id}">
+                    </span>
+                    <span 
+                      id="spDelete"
+                      class="fa fa-times row-action row-delete"
+                      title="Archive"
+                      (click)="deleteServiceRow(item.id)">
+                    </span>
+                  </ng-template>
+                </data-table-column>
+            </data-table>
+
+            <div class="clear-filler"></div> 
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+        <div class="col-lg-12">
+          <div class="col-lg-12 text-center">
+            <ngb-alert 
+              [type]="alert.type" 
+              (close)="closeAlert(alert)" 
+              *ngFor="let alert of alerts">
+              {{ alert.message }}
+            </ngb-alert>
+          </div>
+        </div>
+        <div class="clear-filler"></div>
+
+        <!-- Start - Modal -->
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-body">
+          <div class="col-lg-12">
+            <button type="button" #btnDismiss class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="col-lg-12 text-center">
+              <div class="clear-filler"></div>
+              <img 
+                src="{{openedPhotoUrl}}" 
+                class="img img-responsive img-thumbnail" />
+              <div class="clear-filler"></div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+            <div class="col-lg-12 text-center">
+              <div class="row">
+                <div class="col-lg-6">
+                  <a class="pull-left" [href]="openedPhotoUrl" target="_blank">Download Original Photo</a>
+                </div>
+                <div class="col-lg-6">
+                <button 
+                  type="button" 
+                  class="btn btn-danger pull-right" 
+                  style="margin: 3px 10px; width:100px"
+                  (click)="deleteServicePhoto(openedPhotoServiceId, openedPhotoIndex)">
+                  Delete
+                </button>
+                </div>
+              </div>  
+            </div>
+        </div>
+       
+
+
+      </ng-template>
+      <!-- End - Modal -->
+  
+  </div>
+</div>

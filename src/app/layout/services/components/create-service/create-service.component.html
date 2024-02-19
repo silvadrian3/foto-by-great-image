@@ -1,0 +1,157 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+<div [@routerTransition]>
+  <app-page-header [heading]="'Create Service'" [icon]="'fa-fw fa-plus'"></app-page-header>
+  
+  <div class="col-lg-8 col-lg-offset-2 form-group">
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-plus" aria-hidden="true"></i> Create Servivce
+    </div>
+
+    <div class="clear-filler"></div>
+    <div class="clear-filler"></div>
+    
+    <form role="form" (ngSubmit)="createService()" ngNativeValidate>
+      <div class="col-lg-10 col-lg-offset-1 form-body">
+        <div class="col-lg-12">
+            <div class="col-lg-12 form-group">
+              <h4>Service Details</h4>
+          </div>
+        </div>
+      
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Name <span>*</span></label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="name" required>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Service Type <span>*</span></label>
+            <select class="form-control" name="serviceType" [(ngModel)]="serviceType" required>
+              <option value=""> - - - Please Select - - - </option>
+              <option value="OUTDOOR"> OUTDOOR </option>
+              <option value="STUDIO"> STUDIO </option>
+            </select>
+          </div>
+        </div>
+
+        <!--
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-8">
+            <label>Icon </label>
+            <div class="input-group">
+              <input 
+                type="file" 
+                multiple="false"
+                class="form-control-file form-control"
+                (change)="onFileIconSelected($event)"
+                #fileUploadIcon>
+            </div>
+          </div>
+        </div> 
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-8">
+            <label>Banner </label>
+            <div class="input-group">
+              <input 
+                type="file" 
+                multiple="false"
+                class="form-control-file form-control"
+                (change)="onFileBannerSelected($event)"
+                #fileUploadBanner>
+            </div>
+          </div>
+        </div>
+        --> 
+
+        <!-- <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Inclusion</label>
+            <textarea class="form-control" rows="5" name="inclusion" [(ngModel)]="inclusion"></textarea>
+          </div>
+        </div> -->
+
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+            <label>Description </label>
+            <div class="input-group">
+              <textarea class="form-control" name="description" [(ngModel)]="description" rows="5"></textarea>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-12 form-group" *ngIf="addOns.length > 0">
+          <div class="col-lg-12">
+            <label>Add-Ons</label>
+            <ng-select
+              [multiple]="true"
+              [items]="addOns"
+              (data)="refreshAddOnsValue($event)"
+              placeholder="Choose Add-Ons"
+              notFoundText="'No result found.''">
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="col-lg-12 form-group" *ngIf="packages.length > 0">
+          <div class="col-lg-12">
+            <label>Packages</label>
+            <ng-select
+              [multiple]="true"
+              [items]="packages"
+              (data)="refreshPackagesValue($event)"
+              placeholder="Choose Packages"
+              notFoundText="'No result found.''">
+            </ng-select>
+          </div>
+        </div>
+        
+        <div class="col-lg-12 form-group">
+          <div class="col-lg-12">
+              <label>Featured Service </label><br/>
+            <ui-switch name="isFeatured" size="small" [(ngModel)]="isFeatured"></ui-switch>
+          </div>
+        </div>
+
+        <!-- <div class="col-lg-12 form-group">
+          <div class="col-lg-6">
+            <label>
+              <Input type="checkbox" (change)="chkIsFeatured($event)"> <strong>Featured Service</strong> </label>
+          </div>
+        </div> -->
+
+        <div class="clear-filler"></div>
+        <div class="clear-filler"></div>
+        
+        <div class="col-lg-12 text-center form-group">
+          <div class="col-lg-2 col-lg-offset-4">
+            <button type="submit" class="btn btn-success" [disabled]="isSubmitted"> Submit </button>
+          </div>
+          <div class="col-lg-2">
+              <button 
+                type="button" 
+                routerLink="/services" 
+                class="btn btn-warning"> 
+                  Cancel 
+              </button>
+          </div>
+        </div>
+        
+      </div>
+      <div class="clear-filler"></div>
+
+      <div class="col-lg-10 col-lg-offset-1 text-center">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+      </div>
+
+        <div class="clear-filler"></div>
+    </form>
+    
+    
+  
+  </div>
+</div>
+</div>

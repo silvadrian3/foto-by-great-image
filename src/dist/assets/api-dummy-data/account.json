@@ -1,0 +1,20 @@
+{  
+   "id":"5722646637445120",
+   "accountId":"acq69cxmejs26apy4681689e8kq45qppe20",
+   "userId":"usk265tmn4av654m5teecm3x2sx7rd36cv4",
+   "gender":"MALE",
+   "user":{  
+      "id":"5710239819104256",
+      "userId":"usk265tmn4av654m5teecm3x2sx7rd36cv4",
+      "firebaseId":"OmzjeZoqMHROUBUaOL9TsumE6ku1",
+      "email":"chuck@mycape.io",
+      "status":"ACTIVE",
+      "name":"Chuck Chang",
+      "photoUrl":"https://imagizer.imageshack.us/a/img924/3154/GM3KiO.png",
+      "firebaseTokenProvider":"Firebase"
+   },
+   "firstName":"Chuck",
+   "lastName":"Chang",
+   "mobileNumber":"+63 917 806 6306",
+   "birthday":"12/04/2017"
+}

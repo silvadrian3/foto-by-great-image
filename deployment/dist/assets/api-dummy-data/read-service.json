@@ -1,0 +1,13 @@
+[
+  {
+     "bookingTypeId":"portraitpersonal",
+     "status":"ACTIVE",
+     "serviceType":"PERSONAL",
+     "name":"Portrait",
+     "price":5999.0,
+     "inclusion":"2 hr shoot at your selected location, 25 high resolution photos, Image enhancement, Usage Rights",
+     "addOns":"Extra hr Php 2,500.00, Additional 10 images Php 1,000.00, All photos: Php 3,000.00",
+     "updatedTime":null,
+     "createdTime":"2019-03-13T18:04:00.496"
+  }
+]

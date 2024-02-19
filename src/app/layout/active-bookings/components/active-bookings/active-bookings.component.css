@@ -1,0 +1,141 @@
+.sp_require {
+    color:#ff0000;
+}
+
+textarea {
+    resize: none;
+}
+
+.row-action {
+    margin: 0 3px;
+    cursor: pointer;
+}
+
+.row-search {
+    color: #FF8D33;
+}
+
+.row-edit {
+    color: #33A2FF;
+}
+
+.row-delete {
+    color: #ff0000;
+}
+
+.pagination-box {
+    margin-top: 1% !important;
+}
+
+.pagination-page .input-group .input-group-addon {
+    display: inline;
+}
+
+.index-column-header, .index-column {
+    text-align: center;
+}
+
+.column-header {
+    text-align: center;
+    font-weight: 700;
+}
+
+.data-column {
+    word-wrap: break-word;
+    font-size: 13px;
+}
+
+.expanded-description {
+    word-wrap: break-word;
+    /* font-size: 13px; */
+}
+
+.column-header.column-action {
+    width: 8%;
+}
+
+.data-column.column-action {
+    text-align: center;
+}
+
+.expand-column-header{
+    width: 40px !important;
+}
+
+/* .column-header.column-bookingId {
+    width: 28%;
+} */
+
+.column-header.column-totalPrice {
+    width: 16%;
+}
+
+.column-header.column-dateTime {
+    width: 20%;
+}
+
+.column-header.column-bookingType {
+    width: 17%;
+}
+
+.column-header.column-serviceType {
+    width: 17%;
+}
+
+.column-header.column-referenceNumber {
+    width: 15%;
+} 
+
+.column-header.column-bookingStatus {
+    width: 15%;
+} 
+
+.data-column.column-dateTime {
+    text-align: center;
+}
+
+.data-column.column-totalPrice {
+    text-align: right;
+}
+
+.data-column.column-bookingStatus {
+    text-align: center;
+}
+
+.multiline-paragraph {
+    white-space: pre-line; 
+}
+
+agm-map { 
+    height: 300px; /* height is required */ 
+}
+
+
+.photoLoading{
+    color: white;
+    padding-top: 50px;
+  }
+
+.black-overlay {
+    position: relative !important;
+}
+
+.black-overlay > p {
+    top: 73% !important;
+    font-weight: 500 !important;
+}
+
+
+.preview-img-holder {
+    max-height:235px;
+    max-width:235px;
+    width:235px;
+    height:235px;
+    margin-bottom:25px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.photolist-container {
+    padding: 20px
+}
